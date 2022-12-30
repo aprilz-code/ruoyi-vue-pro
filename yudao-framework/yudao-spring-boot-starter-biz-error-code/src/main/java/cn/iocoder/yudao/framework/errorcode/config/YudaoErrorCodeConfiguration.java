@@ -5,6 +5,7 @@ import cn.iocoder.yudao.framework.errorcode.core.generator.ErrorCodeAutoGenerato
 import cn.iocoder.yudao.framework.errorcode.core.loader.ErrorCodeLoader;
 import cn.iocoder.yudao.framework.errorcode.core.loader.ErrorCodeLoaderImpl;
 import cn.iocoder.yudao.module.system.api.errorcode.ErrorCodeApi;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -26,13 +27,13 @@ public class YudaoErrorCodeConfiguration {
     @Bean
     public ErrorCodeAutoGenerator errorCodeAutoGenerator(@Value("${spring.application.name}") String applicationName,
                                                          ErrorCodeProperties errorCodeProperties,
-                                                         ErrorCodeApi errorCodeApi) {
+                                                         @Autowired(required = false) ErrorCodeApi errorCodeApi) {
         return new ErrorCodeAutoGeneratorImpl(applicationName, errorCodeProperties.getConstantsClassList(), errorCodeApi);
     }
 
     @Bean
     public ErrorCodeLoader errorCodeLoader(@Value("${spring.application.name}") String applicationName,
-                                           ErrorCodeApi errorCodeApi) {
+                                           @Autowired(required = false) ErrorCodeApi errorCodeApi) {
         return new ErrorCodeLoaderImpl(applicationName, errorCodeApi);
     }
 

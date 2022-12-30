@@ -7,7 +7,7 @@
 <script>
 import iFrame from "@/components/iFrame/index";
 export default {
-  name: "Druid",
+  name: "AdminServer",
   components: { iFrame },
   data() {
     return {

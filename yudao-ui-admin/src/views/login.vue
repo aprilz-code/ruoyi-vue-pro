@@ -269,6 +269,18 @@ export default {
             tenant = true
             if (tenantId && tenantId >= 0) {
               setTenantId(tenantId)
+              if(tenant){
+                // 计算 redirectUri
+                const redirectUri = location.origin + '/social-login?'
+                  + encodeURIComponent('type=' + socialTypeEnum.type + '&redirect=' + (this.redirect || "/")); // 重定向不能丢
+                // const redirectUri = 'http://127.0.0.1:48080/api/gitee/callback';
+                // const redirectUri = 'http://127.0.0.1:48080/api/dingtalk/callback';
+                // 进行跳转
+                socialAuthRedirect(socialTypeEnum.type, encodeURIComponent(redirectUri)).then((res) => {
+                  // console.log(res.url);
+                  window.location.href = res.data;
+                });
+              }
             }
           });
         }).catch(() => {

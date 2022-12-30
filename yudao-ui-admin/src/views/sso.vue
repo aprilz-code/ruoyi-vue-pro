@@ -54,7 +54,7 @@
 import {authorize, getAuthorize} from "@/api/login";
 
 export default {
-  name: "Login",
+  name: "Sso",
   data() {
     return {
       loginForm: {

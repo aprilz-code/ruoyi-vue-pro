@@ -92,7 +92,7 @@ public class FileConfigServiceImpl implements FileConfigService {
             return;
         }
 
-        // 创建或更新支付 Client
+        // 创建或更新file Client
         configs.forEach(config -> {
             fileClientFactory.createOrUpdateFileClient(config.getId(), config.getStorage(), config.getConfig());
             // 如果是 master，进行设置
