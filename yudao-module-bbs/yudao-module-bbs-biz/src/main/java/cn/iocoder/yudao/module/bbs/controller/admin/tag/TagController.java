@@ -50,6 +50,15 @@ public class TagController {
         return success(true);
     }
 
+    @PutMapping("/topTag")
+    @ApiOperation("置顶标签")
+    @ApiImplicitParam(name = "id", value = "编号", required = true, dataTypeClass = Long.class)
+    @PreAuthorize("@ss.hasPermission('bbs:tag:update')")
+    public CommonResult<Boolean> topTag(@RequestParam("id") Long id) {
+        tagService.topTag(id);
+        return success(true);
+    }
+
     @DeleteMapping("/delete")
     @ApiOperation("删除标签")
     @ApiImplicitParam(name = "id", value = "编号", required = true, dataTypeClass = Long.class)

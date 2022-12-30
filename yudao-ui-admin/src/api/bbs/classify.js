@@ -18,6 +18,14 @@ export function updateClassify(data) {
   })
 }
 
+// 置顶分类
+export function topClassify(id) {
+  return request({
+    url: '/bbs/classify/topClassify?id=' + id,
+    method: 'put'
+  })
+}
+
 // 删除分类
 export function deleteClassify(id) {
   return request({

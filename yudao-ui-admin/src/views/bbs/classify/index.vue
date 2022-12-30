@@ -63,6 +63,8 @@
       </el-table-column>
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
         <template v-slot="scope">
+          <el-button size="mini" type="text" icon="el-icon-top" @click="handleTop(scope.row)"
+                     v-hasPermi="['bbs:classify:update']">置顶</el-button>
           <el-button size="mini" type="text" icon="el-icon-edit" @click="handleUpdate(scope.row)"
                      v-hasPermi="['bbs:classify:update']">修改</el-button>
           <el-button size="mini" type="text" icon="el-icon-delete" @click="handleDelete(scope.row)"
@@ -102,7 +104,15 @@
 </template>
 
 <script>
-import { createClassify, updateClassify, deleteClassify, getClassify, getClassifyPage, exportClassifyExcel } from "@/api/bbs/classify";
+import {
+  createClassify,
+  updateClassify,
+  deleteClassify,
+  getClassify,
+  getClassifyPage,
+  exportClassifyExcel,
+  topClassify
+} from "@/api/bbs/classify";
 import {CommonStatusEnum} from "@/utils/constants";
 
 export default {
@@ -239,6 +249,15 @@ export default {
           this.getList();
           this.$modal.msgSuccess("删除成功");
         }).catch(() => {});
+    },
+    handleTop(row) {
+      const id = row.id;
+      this.$modal.confirm('是否确认置顶分类编号为"' + id + '"的数据项?').then(function() {
+        return topClassify(id);
+      }).then(() => {
+        this.getList();
+        this.$modal.msgSuccess("置顶成功");
+      }).catch(() => {});
     },
     /** 导出按钮操作 */
     handleExport() {

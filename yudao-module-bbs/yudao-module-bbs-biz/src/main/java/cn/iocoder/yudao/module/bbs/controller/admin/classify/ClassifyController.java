@@ -50,6 +50,14 @@ public class ClassifyController {
         return success(true);
     }
 
+    @PutMapping("/topClassify")
+    @ApiOperation("置顶分类")
+    @PreAuthorize("@ss.hasPermission('bbs:classify:update')")
+    public CommonResult<Boolean> topClassify(@RequestParam("id") Long id) {
+        classifyService.topClassify(id);
+        return success(true);
+    }
+
     @DeleteMapping("/delete")
     @ApiOperation("删除分类")
     @ApiImplicitParam(name = "id", value = "编号", required = true, dataTypeClass = Long.class)

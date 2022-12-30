@@ -18,6 +18,14 @@ export function updateTag(data) {
   })
 }
 
+// 置顶标签
+export function topTag(id) {
+  return request({
+    url: '/bbs/tag/topTag?id=' + id,
+    method: 'put'
+  })
+}
+
 // 删除标签
 export function deleteTag(id) {
   return request({

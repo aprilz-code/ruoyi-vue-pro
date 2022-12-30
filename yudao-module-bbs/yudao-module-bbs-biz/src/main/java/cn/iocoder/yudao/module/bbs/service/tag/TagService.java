@@ -67,4 +67,5 @@ public interface TagService {
      */
     List<TagDO> getTagList(TagExportReqVO exportReqVO);
 
+    void topTag(Long id);
 }

@@ -8,6 +8,7 @@ import cn.iocoder.yudao.framework.mybatis.core.mapper.BaseMapperX;
 import cn.iocoder.yudao.module.bbs.dal.dataobject.classify.ClassifyDO;
 import org.apache.ibatis.annotations.Mapper;
 import cn.iocoder.yudao.module.bbs.controller.admin.classify.vo.*;
+import org.apache.ibatis.annotations.Update;
 
 /**
  * 分类 Mapper
@@ -24,7 +25,8 @@ public interface ClassifyMapper extends BaseMapperX<ClassifyDO> {
                 .eqIfPresent(ClassifyDO::getStatus, reqVO.getStatus())
                 .betweenIfPresent(ClassifyDO::getCreateTime, reqVO.getCreateTime())
                 .eqIfPresent(ClassifyDO::getDeleted, reqVO.getDeleted())
-                .orderByDesc(ClassifyDO::getId));
+                .orderByDesc(ClassifyDO::getSort)
+                .orderByDesc(ClassifyDO::getUpdateTime));
     }
 
     default List<ClassifyDO> selectList(ClassifyExportReqVO reqVO) {
@@ -34,7 +36,10 @@ public interface ClassifyMapper extends BaseMapperX<ClassifyDO> {
                 .eqIfPresent(ClassifyDO::getStatus, reqVO.getStatus())
                 .betweenIfPresent(ClassifyDO::getCreateTime, reqVO.getCreateTime())
                 .eqIfPresent(ClassifyDO::getDeleted, reqVO.getDeleted())
-                .orderByDesc(ClassifyDO::getId));
+                .orderByDesc(ClassifyDO::getSort)
+                .orderByDesc(ClassifyDO::getUpdateTime));
     }
 
+    @Update("UPDATE bbs_classify t,(select MAX(sort) + 10 maxSort from bbs_classify ) tt  SET t.sort = tt.maxSort   WHERE t.id =#{id}")
+    int topClassify(Long id);
 }

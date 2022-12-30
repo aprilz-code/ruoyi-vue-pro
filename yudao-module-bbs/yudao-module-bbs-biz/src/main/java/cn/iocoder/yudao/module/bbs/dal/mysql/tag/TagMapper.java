@@ -5,8 +5,10 @@ import cn.iocoder.yudao.framework.mybatis.core.mapper.BaseMapperX;
 import cn.iocoder.yudao.framework.mybatis.core.query.LambdaQueryWrapperX;
 import cn.iocoder.yudao.module.bbs.controller.admin.tag.vo.TagExportReqVO;
 import cn.iocoder.yudao.module.bbs.controller.admin.tag.vo.TagPageReqVO;
+import cn.iocoder.yudao.module.bbs.dal.dataobject.classify.ClassifyDO;
 import cn.iocoder.yudao.module.bbs.dal.dataobject.tag.TagDO;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
 
@@ -25,7 +27,8 @@ public interface TagMapper extends BaseMapperX<TagDO> {
                 .eqIfPresent(TagDO::getSort, reqVO.getSort())
                 .eqIfPresent(TagDO::getStatus, reqVO.getStatus())
                 .betweenIfPresent(TagDO::getCreateTime, reqVO.getCreateTime())
-                .orderByAsc(TagDO::getSort));
+                .orderByDesc(TagDO::getSort)
+                .orderByDesc(TagDO::getUpdateTime));
     }
 
     default List<TagDO> selectList(TagExportReqVO reqVO) {
@@ -35,7 +38,10 @@ public interface TagMapper extends BaseMapperX<TagDO> {
                 .eqIfPresent(TagDO::getSort, reqVO.getSort())
                 .eqIfPresent(TagDO::getStatus, reqVO.getStatus())
                 .betweenIfPresent(TagDO::getCreateTime, reqVO.getCreateTime())
-                .orderByDesc(TagDO::getSort));
+                .orderByDesc(TagDO::getSort)
+                .orderByDesc(TagDO::getUpdateTime));
     }
 
+    @Update("UPDATE bbs_tag t,(select MAX(sort) + 10 maxSort from bbs_tag ) tt  SET t.sort = tt.maxSort   WHERE t.id =#{id}")
+    int topTag(Long id);
 }

@@ -56,6 +56,8 @@
       </el-table-column>
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
         <template v-slot="scope">
+          <el-button size="mini" type="text" icon="el-icon-top" @click="handleTop(scope.row)"
+                     v-hasPermi="['bbs:tag:update']">置顶</el-button>
           <el-button size="mini" type="text" icon="el-icon-edit" @click="handleUpdate(scope.row)"
                      v-hasPermi="['bbs:tag:update']">修改</el-button>
           <el-button size="mini" type="text" icon="el-icon-delete" @click="handleDelete(scope.row)"
@@ -92,8 +94,9 @@
 </template>
 
 <script>
-import { createTag, updateTag, deleteTag, getTag, getTagPage, exportTagExcel } from "@/api/bbs/tag";
+import {createTag, updateTag, deleteTag, getTag, getTagPage, exportTagExcel, topTag} from "@/api/bbs/tag";
 import {CommonStatusEnum} from "@/utils/constants";
+import {topClassify} from "@/api/bbs/classify";
 
 export default {
   name: "Tag",
@@ -217,6 +220,15 @@ export default {
           this.getList();
         });
       });
+    },
+    handleTop(row) {
+      const id = row.id;
+      this.$modal.confirm('是否确认置顶标签编号为"' + id + '"的数据项?').then(function() {
+        return topTag(id);
+      }).then(() => {
+        this.getList();
+        this.$modal.msgSuccess("置顶成功");
+      }).catch(() => {});
     },
     /** 删除按钮操作 */
     handleDelete(row) {

@@ -67,4 +67,5 @@ public interface ClassifyService {
      */
     List<ClassifyDO> getClassifyList(ClassifyExportReqVO exportReqVO);
 
+    void topClassify(Long id);
 }

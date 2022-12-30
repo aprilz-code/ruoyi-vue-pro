@@ -79,4 +79,12 @@ public class ClassifyServiceImpl implements ClassifyService {
         return classifyMapper.selectList(exportReqVO);
     }
 
+    @Override
+    public void topClassify(Long id) {
+        // 校验存在
+        this.validateClassifyExists(id);
+        // 删除
+        classifyMapper.topClassify(id);
+    }
+
 }

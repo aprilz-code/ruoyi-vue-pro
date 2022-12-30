@@ -79,4 +79,11 @@ public class TagServiceImpl implements TagService {
         return tagMapper.selectList(exportReqVO);
     }
 
+    @Override
+    public void topTag(Long id) {
+        // 校验存在
+        this.validateTagExists(id);
+        tagMapper.topTag(id);
+    }
+
 }
