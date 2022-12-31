@@ -108,7 +108,7 @@ import flowableModdleExtension from "./plugins/extension-moddle/flowable";
 import convert from "xml-js";
 
 // 代码高亮插件
-import hljs from "highlight.js/lib/highlight";
+import hljs from "highlight.js";
 import "highlight.js/styles/github-gist.css";
 hljs.registerLanguage("xml", require("highlight.js/lib/languages/xml"));
 hljs.registerLanguage("json", require("highlight.js/lib/languages/json"));
