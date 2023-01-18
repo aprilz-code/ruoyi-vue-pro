@@ -9,6 +9,7 @@ public interface DictTypeConstants {
 
     String USER_TYPE = "user_type"; // 用户类型
     String COMMON_STATUS = "common_status"; // 系统状态
+    String BOOLEAN_STATUS = "boolean_status"; // 是否
 
     // ========== SYSTEM 模块 ==========
 

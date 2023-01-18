@@ -1,12 +1,13 @@
 export default {
   previewStyle: 'vertical', // tab, vertical
-  initialEditType: 'markdown', // markdown, wysiwyg
-  height: '400px', // 300px | auto
-  minHeight: '300px',
-  language: 'zh-CN',
+  theme: 'dark',
+  initialEditType: 'wysiwyg', // markdown, wysiwyg
+  height: '500px', // 300px | auto
+  //minHeight: '300px',
+  language: 'en_US',
   useDefaultHTMLSanitizer: true,
   useCommandShortcut: true,
-  usageStatistics: true,
+  usageStatistics: false,
   toolbarItems: [
     ['heading', 'bold', 'italic', 'strike'],
     ['hr', 'quote'],

@@ -86,4 +86,9 @@ public class TagServiceImpl implements TagService {
         tagMapper.topTag(id);
     }
 
+    @Override
+    public List<TagDO> selectList() {
+        return tagMapper.selectList();
+    }
+
 }

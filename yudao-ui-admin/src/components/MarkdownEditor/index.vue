@@ -1,5 +1,5 @@
 <template>
-  <div :id="id" class="ad-markdown" />
+  <div :id="id" />
 </template>
 
 <script>
@@ -56,12 +56,12 @@ export default {
     height: {
       type: String,
       required: false,
-      default: '400px'
+      default: '500px'
     },
     language: {
       type: String,
       required: false,
-      default: 'zh-CN'
+      default: 'en_US'
     },
     mode: {
       type: String,
@@ -155,14 +155,5 @@ export default {
 </script>
 
 <style scoped>
-.ad-markdown ::v-deep .tui-editor-defaultUI .te-switch-button{
-  border-right-width: 0px;
-}
-.ad-markdown ::v-deep .tui-editor-defaultUI .te-switch-button.markdown{
-  vertical-align: 1px;
-}
-.ad-markdown ::v-deep .toastui-editor-ww-container{
-  position: absolute;
-  width: 100%;
-}
+
 </style>

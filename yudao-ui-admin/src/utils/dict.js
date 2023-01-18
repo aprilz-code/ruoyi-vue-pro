@@ -8,6 +8,7 @@ import store from '@/store'
 export const DICT_TYPE = {
   USER_TYPE: 'user_type',
   COMMON_STATUS: 'common_status',
+  BOOLEAN_STATUS: 'boolean_status',
   TERMINAL: 'terminal',
 
   // ========== SYSTEM 模块 ==========
@@ -77,6 +78,10 @@ export const DICT_TYPE = {
   PROMOTION_COUPON_TAKE_TYPE: 'promotion_coupon_take_type', // 优惠劵的领取方式
   PROMOTION_ACTIVITY_STATUS: 'promotion_activity_status', // 优惠活动的状态
   PROMOTION_CONDITION_TYPE: 'promotion_condition_type', // 营销的条件类型枚举
+
+
+  // ========== BBS 模块 ==========
+  BBS_ARTICLE_TYPE: 'bbs_article_type', //文章类型
 }
 
 /**

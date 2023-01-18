@@ -163,6 +163,7 @@ public class MemberAuthServiceImpl implements MemberAuthService {
         final LoginLogTypeEnum logTypeEnum = LoginLogTypeEnum.LOGIN_MOBILE;
         // 校验账号是否存在
         MemberUserDO user = userService.getUserByMobile(mobile);
+
         if (user == null) {
             createLoginLog(null, mobile, logTypeEnum, LoginResultEnum.BAD_CREDENTIALS);
             throw exception(AUTH_LOGIN_BAD_CREDENTIALS);
