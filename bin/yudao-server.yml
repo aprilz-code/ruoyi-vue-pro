@@ -1,0 +1,18 @@
+version: '3'
+services:
+  #授权服务
+  mogu-gateway:
+    image: registry.cn-shenzhen.aliyuncs.com/whiteblog/yudao-server:latest
+    container_name: yudao-server
+    restart: always
+    ports:
+      - 48080:48080
+    networks:
+      - ap
+    environment:
+      - COMPOSE_PROJECT_NAME=yudao-server
+    volumes:
+      - ../log/:/logs/
+networks:
+  ap:
+    external: true
