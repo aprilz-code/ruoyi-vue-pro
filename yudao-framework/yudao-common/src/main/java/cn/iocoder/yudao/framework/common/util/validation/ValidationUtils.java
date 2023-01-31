@@ -7,6 +7,8 @@ import org.springframework.util.StringUtils;
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
 import javax.validation.Validator;
+import java.lang.reflect.Field;
+import java.util.Objects;
 import java.util.Set;
 import java.util.regex.Pattern;
 
@@ -44,5 +46,31 @@ public class ValidationUtils {
             throw new ConstraintViolationException(constraintViolations);
         }
     }
+
+
+
+    /**
+     * 是否有空属性值
+     *
+     * @param object
+     * @return
+     */
+    public static boolean checkObjAllFieldsHasNull(Object object) {
+        if (null == object) {
+            return true;
+        }
+        try {
+            for (Field f : object.getClass().getDeclaredFields()) {
+                f.setAccessible(true);
+                if (Objects.isNull(f.get(object))) {
+                    return true;
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
 
 }

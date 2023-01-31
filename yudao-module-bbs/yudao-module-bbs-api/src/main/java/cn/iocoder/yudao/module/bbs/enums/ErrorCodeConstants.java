@@ -18,4 +18,13 @@ public interface ErrorCodeConstants {
 
     ErrorCode ARTICLE_NOT_EXISTS = new ErrorCode(1011000021, "文章不存在");
 
+
+    ErrorCode MI_CARD_NOT_EXISTS = new ErrorCode(1011000031, "米卡密不存在");
+
+    ErrorCode MI_DO_ERROR = new ErrorCode(1011000032, "当前账号：{}，打卡失败，请检查账号密码是否正确");
+
+    ErrorCode MI_JOB_NOT_EXISTS = new ErrorCode(1011000041, "米job不存在");
+
+    ErrorCode MI_LOG_NOT_EXISTS = new ErrorCode(1011000051, "米日志不存在");
+
 }

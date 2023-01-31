@@ -65,3 +65,63 @@ CREATE TABLE `bbs_article`
     PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT='文章表';
 
+
+
+DROP TABLE IF EXISTS `bbs_mi_log`;
+CREATE TABLE `bbs_mi_log`
+(
+    `id` bigint NOT NULL AUTO_INCREMENT COMMENT 'id',
+    `min_step`    int         NOT NULL COMMENT '最小步数',
+    `max_step`    int         NOT NULL COMMENT '最大步数',
+    `real_step`   int         NOT NULL COMMENT '实际步数',
+    `mobile`      VARCHAR(64)          DEFAULT NULL COMMENT '手机号码',
+    `pwd`         VARCHAR(64)          DEFAULT NULL COMMENT '密码',
+    `source`      VARCHAR(64)          DEFAULT NULL COMMENT '来源 h5 xxl',
+    `status` tinyint NOT NULL default 0 COMMENT '状态',
+    `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
+    `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
+    `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
+    PRIMARY KEY (`id`) USING BTREE
+)ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT='米日志表';
+
+
+DROP TABLE IF EXISTS `bbs_mi_job`;
+CREATE TABLE `bbs_mi_job`
+(
+    `id` bigint NOT NULL AUTO_INCREMENT COMMENT 'id',
+    `mobile`      VARCHAR(64)          DEFAULT NULL COMMENT '手机号码',
+    `pwd`         VARCHAR(64)          DEFAULT NULL COMMENT '密码',
+    `card_no`     VARCHAR(64)          DEFAULT NULL COMMENT '卡密',
+    `cron`        VARCHAR(64)          DEFAULT NULL COMMENT '执行计划',
+    `min_step`    int         NOT NULL COMMENT '最小步数',
+    `max_step`    int         NOT NULL COMMENT '最大步数',
+    `end_time`    timestamp   NOT NULL COMMENT '结束时间',
+    `job_id`      int         NOT NULL COMMENT 'xxljobId',
+    `user_id`     int                  DEFAULT NULL COMMENT '用户id',
+    `status` tinyint NOT NULL default 0 COMMENT '状态',
+    `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
+    `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
+    `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
+    PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT='米job表';
+
+
+
+DROP TABLE IF EXISTS `bbs_mi_card`;
+CREATE TABLE `bbs_mi_card`
+(
+    `id` bigint NOT NULL AUTO_INCREMENT COMMENT 'id',
+    `card_no`     VARCHAR(64)          DEFAULT NULL COMMENT '卡密',
+    `type`        tinyint unsigned NOT NULL DEFAULT '1' COMMENT '1.7day 2.1年 3.永久',
+    `status` tinyint NOT NULL default 0 COMMENT '状态',
+    `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
+    `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
+    `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
+    PRIMARY KEY (`id`) USING BTREE
+)ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT='米卡密表';
