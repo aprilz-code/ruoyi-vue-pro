@@ -39,8 +39,8 @@ jobs:
           echo '=====开始mvn clean====='
           mvn clean
 
-          echo '=====开始mvn install&&package====='
-          mvn install -Pprod -DskipTests=true && mvn package -Pprod -DskipTests=true
+          echo '=====开始mvn install====='
+          mvn install  -DskipTests=true
 
       - name: Extract files from jar && Build Java Docker Images
         # 从构建好的jar中提取制作镜像所需的内容，例如依赖jar、class、配置文件等

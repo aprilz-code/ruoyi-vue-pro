@@ -17,4 +17,4 @@ ENV TZ=Asia/Shanghai JAVA_OPTS="-Xms256m -Xmx256m"
 EXPOSE 48080
 
 ## 启动后端项目 -Djava.security.egd=file:/dev/./urandom 来加快SecureRandom随机数的生成
-ENTRYPOINT java ${JAVA_OPTS} -Djava.security.egd=file:/dev/./urandom -jar app.jar
+ENTRYPOINT java ${JAVA_OPTS} -Djava.security.egd=file:/dev/./urandom -jar  app.jar --spring.profiles.active=prod
