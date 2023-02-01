@@ -1,7 +1,6 @@
 version: '3'
 services:
-  #授权服务
-  mogu-gateway:
+  yudao-server:
     image: registry.cn-shenzhen.aliyuncs.com/whiteblog/yudao-server:latest
     container_name: yudao-server
     restart: always
