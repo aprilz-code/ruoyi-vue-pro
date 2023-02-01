@@ -30,24 +30,24 @@ jobs:
       - uses: docker/setup-buildx-action@v1
       - uses: actions/setup-node@v1
         with:
-          node-version: 16.x
+          node-version: 14.x
       # 安装maven依赖
-      - name: Maven Clean Install
-        run: |
-          echo '=====开始mvn clean====='
-          mvn clean
-
-          echo '=====开始mvn install&&package====='
-          mvn install -DskipTests=true && mvn package -DskipTests=true
-
-      - name: Extract files from jar
-        # 从构建好的jar中提取制作镜像所需的内容，例如依赖jar、class、配置文件等
-        run: |
-          echo '=====提取jar并Build Java Docker Images====='
-          cp yudao-server/target/yudao-server.jar yudao-server/src/main/resources/yudao-server.jar
-          cd ./yudao-server/src/main/resources
-          docker build -t registry.cn-shenzhen.aliyuncs.com/whiteblog/yudao-server .
-          cd ../../../..
+#      - name: Maven Clean Install
+#        run: |
+#          echo '=====开始mvn clean====='
+#          mvn clean
+#
+#          echo '=====开始mvn install&&package====='
+#          mvn install -DskipTests=true && mvn package -DskipTests=true
+#
+#      - name: Extract files from jar && Build Java Docker Images
+#        # 从构建好的jar中提取制作镜像所需的内容，例如依赖jar、class、配置文件等
+#        run: |
+#          echo '=====提取jar并Build Java Docker Images====='
+#          cp yudao-server/target/yudao-server.jar yudao-server/src/main/resources/yudao-server.jar
+#          cd ./yudao-server/src/main/resources
+#          docker build -t registry.cn-shenzhen.aliyuncs.com/whiteblog/yudao-server .
+#          cd ../../../..
 
       - name: Build yudao-ui-admin
         run: |
