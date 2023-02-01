@@ -30,7 +30,7 @@ jobs:
       - uses: docker/setup-buildx-action@v1
       - uses: actions/setup-node@v1
         with:
-          node-version: 14.x
+          node-version: 16.x
       # 安装maven依赖
       - name: Maven Clean Install
         run: |
