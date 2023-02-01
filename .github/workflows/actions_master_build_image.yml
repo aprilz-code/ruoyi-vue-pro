@@ -54,7 +54,7 @@ jobs:
           echo '=====开始安装yudao-ui-admin依赖====='
           cd ./yudao-ui-admin
           npm install
-          npm run build
+          npm run build:prod
           cd ..
 
 
