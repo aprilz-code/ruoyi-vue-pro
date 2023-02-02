@@ -11,7 +11,7 @@ services:
     environment:
       - COMPOSE_PROJECT_NAME=yudao-server
     volumes:
-      - ../log/:/logs/
+      - ../log/:/root/logs/
 networks:
   ap:
     external: true

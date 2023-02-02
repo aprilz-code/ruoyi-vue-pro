@@ -146,7 +146,7 @@ spring:
 # 日志文件配置
 logging:
   file:
-    name: ${user.home}/logs/${spring.application.name}.log # 日志文件名，全路径
+    name: ${user.home}/logs/${spring.application.name}.log # 日志文件名，全路径  日志存放在 /root,普通用户在/home
   level:
     # 配置自己写的 MyBatis Mapper 打印日志
     cn.iocoder.yudao.module.bpm.dal.mysql: debug
