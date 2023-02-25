@@ -12,6 +12,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class AppUserInfoRespVO {
 
+    @ApiModelProperty(value = "用户ID", required = true, example = "1")
+    private Long id;
+
     @ApiModelProperty(value = "用户昵称", required = true, example = "芋艿")
     private String nickname;
 

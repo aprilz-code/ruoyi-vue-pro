@@ -43,6 +43,12 @@ public class AppAuthController {
         return success(authService.login(reqVO));
     }
 
+    @PostMapping("/userLogin")
+    @ApiOperation("使用用户名 + 密码登录")
+    public CommonResult<AppAuthLoginRespVO> login(@RequestBody @Valid AppAuthUserLoginReqVO reqVO) {
+        return success(authService.userLogin(reqVO));
+    }
+
     @PostMapping("/logout")
     @PermitAll
     @ApiOperation("登出系统")

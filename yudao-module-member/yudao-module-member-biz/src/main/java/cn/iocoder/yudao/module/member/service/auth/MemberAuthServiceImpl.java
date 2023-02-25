@@ -82,6 +82,22 @@ public class MemberAuthServiceImpl implements MemberAuthService {
         return createTokenAfterLoginSuccess(user, reqVO.getMobile(), LoginLogTypeEnum.LOGIN_MOBILE);
     }
 
+
+    @Override
+    public AppAuthLoginRespVO userLogin(AppAuthUserLoginReqVO reqVO) {
+        // 使用账户名 + 密码，进行登录。
+        MemberUserDO user = userLogin(reqVO.getUserName(), reqVO.getPassword());
+
+        // 如果 socialType 非空，说明需要绑定社交用户
+        if (reqVO.getSocialType() != null) {
+            socialUserApi.bindSocialUser(new SocialUserBindReqDTO(user.getId(), getUserType().getValue(),
+                    reqVO.getSocialType(), reqVO.getSocialCode(), reqVO.getSocialState()));
+        }
+
+        // 创建 Token 令牌，记录登录日志
+        return createTokenAfterLoginSuccess(user, reqVO.getUserName(), LoginLogTypeEnum.LOGIN_USERNAME);
+    }
+
     @Override
     @Transactional
     public AppAuthLoginRespVO smsLogin(AppAuthSmsLoginReqVO reqVO) {
@@ -180,6 +196,27 @@ public class MemberAuthServiceImpl implements MemberAuthService {
         return user;
     }
 
+    private MemberUserDO userLogin(String userName, String password) {
+        final LoginLogTypeEnum logTypeEnum = LoginLogTypeEnum.LOGIN_MOBILE;
+        // 校验账号是否存在
+        MemberUserDO user = userService.getUserByUserName(userName);
+
+        if (user == null) {
+            createLoginLog(null, userName, logTypeEnum, LoginResultEnum.BAD_CREDENTIALS);
+            throw exception(AUTH_LOGIN_BAD_CREDENTIALS);
+        }
+        if (!userService.isPasswordMatch(password, user.getPassword())) {
+            createLoginLog(user.getId(), userName, logTypeEnum, LoginResultEnum.BAD_CREDENTIALS);
+            throw exception(AUTH_LOGIN_BAD_CREDENTIALS);
+        }
+        // 校验是否禁用
+        if (ObjectUtil.notEqual(user.getStatus(), CommonStatusEnum.ENABLE.getStatus())) {
+            createLoginLog(user.getId(), userName, logTypeEnum, LoginResultEnum.USER_DISABLED);
+            throw exception(AUTH_LOGIN_USER_DISABLED);
+        }
+        return user;
+    }
+
     private void createLoginLog(Long userId, String mobile, LoginLogTypeEnum logType, LoginResultEnum loginResult) {
         // 插入登录日志
         LoginLogCreateReqDTO reqDTO = new LoginLogCreateReqDTO();
@@ -245,6 +282,7 @@ public class MemberAuthServiceImpl implements MemberAuthService {
         OAuth2AccessTokenRespDTO accessTokenDO = oauth2TokenApi.refreshAccessToken(refreshToken, OAuth2ClientConstants.CLIENT_ID_DEFAULT);
         return AuthConvert.INSTANCE.convert(accessTokenDO);
     }
+
 
     /**
      * 校验旧密码

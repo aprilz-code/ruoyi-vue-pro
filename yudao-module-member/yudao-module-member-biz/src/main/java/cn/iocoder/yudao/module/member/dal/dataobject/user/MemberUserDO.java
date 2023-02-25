@@ -36,6 +36,10 @@ public class MemberUserDO extends TenantBaseDO {
      */
     private String nickname;
     /**
+     * 用户昵称
+     */
+    private String userName;
+    /**
      * 用户头像
      */
     private String avatar;

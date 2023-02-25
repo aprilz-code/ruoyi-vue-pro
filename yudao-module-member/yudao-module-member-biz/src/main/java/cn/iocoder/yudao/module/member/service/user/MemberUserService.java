@@ -24,6 +24,14 @@ public interface MemberUserService {
     MemberUserDO getUserByMobile(String mobile);
 
     /**
+     * 通过账户名查询用户
+     *
+     * @param userName 账户名
+     * @return 用户对象
+     */
+    MemberUserDO getUserByUserName(String userName);
+
+    /**
      * 基于用户昵称，模糊匹配用户列表
      *
      * @param nickname 用户昵称，模糊匹配
