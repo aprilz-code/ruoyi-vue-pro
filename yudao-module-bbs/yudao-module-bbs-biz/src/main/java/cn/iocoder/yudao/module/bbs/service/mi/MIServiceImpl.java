@@ -6,9 +6,9 @@ import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.http.HttpRequest;
 import cn.iocoder.yudao.framework.common.exception.ErrorCode;
-import cn.iocoder.yudao.framework.common.exception.ServerException;
 import cn.iocoder.yudao.framework.common.exception.ServiceException;
 import cn.iocoder.yudao.module.bbs.controller.app.mi.vo.MiSportVo;
+import cn.iocoder.yudao.module.bbs.controller.app.mi.vo.MiSportZDJobVo;
 import cn.iocoder.yudao.module.bbs.controller.app.micard.vo.AppMiCardExportReqVO;
 import cn.iocoder.yudao.module.bbs.dal.dataobject.micard.MiCardDO;
 import cn.iocoder.yudao.module.bbs.dal.dataobject.mijob.MiJobDO;
@@ -17,13 +17,14 @@ import cn.iocoder.yudao.module.bbs.dal.mysql.micard.MiCardMapper;
 import cn.iocoder.yudao.module.bbs.dal.mysql.mijob.MiJobMapper;
 import cn.iocoder.yudao.module.bbs.dal.mysql.milog.MiLogMapper;
 import cn.iocoder.yudao.module.bbs.enums.ErrorCodeConstants;
+import cn.iocoder.yudao.module.infra.api.job.JobApi;
+import cn.iocoder.yudao.module.infra.api.job.vo.job.ApiJobCreateReqVO;
 import com.alibaba.fastjson.JSON;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.google.common.base.Splitter;
-import io.swagger.v3.oas.annotations.servers.Server;
 import org.apache.http.Header;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.config.RequestConfig;
@@ -68,6 +69,9 @@ public class MIServiceImpl implements MIService {
     private MiJobMapper miJobMapper;
     @Resource
     private MiLogMapper miLogMapper;
+
+    @Resource
+    private JobApi jobApi;
 
 
     {
@@ -116,7 +120,7 @@ public class MIServiceImpl implements MIService {
         String appToken = getAppToken(login_token);
         String time = getTime();
         if (StrUtil.isBlank(appToken) || StrUtil.isBlank(user_id)) {
-            ErrorCode errorCode = new ErrorCode(1011000033, StrUtil.format("当前账号：{}，打卡失败，请检查账号密码是否正确", mi.getUin()));
+            ErrorCode errorCode = new ErrorCode(1011000033, StrUtil.format("请检查 {} 账号密码是否正确", mi.getUin()));
             throw new ServiceException(errorCode);
         }
 
@@ -179,11 +183,25 @@ public class MIServiceImpl implements MIService {
 //                //新增任务并启动
 //                Integer jobId = xxlJobComponent.add(xxlJobInfo);
 //                xxlJobComponent.start(jobId);
-                //todo 关联用户id
+                MiSportZDJobVo jobParam = new MiSportZDJobVo();
+                jobParam.setPwd(mi.getPwd()).setUin(mi.getUin()).setMaxStep(zdVo.getZdMaxStep())
+                        .setMinStep(zdVo.getZdMinStep()).setSource("xxl");
+                ApiJobCreateReqVO apiJobCreateReqVO = new ApiJobCreateReqVO();
+                apiJobCreateReqVO.setHandlerName("miJob");
+                apiJobCreateReqVO.setName("小米任务" + mi.getUin())
+                                .setHandlerParam(JSON.toJSONString(jobParam))
+                        .setCronExpression(sb.toString()).setRetryCount(0).setRetryInterval(10);
+
+                try {
+                    jobApi.createJob(apiJobCreateReqVO);
+                } catch (Exception e) {
+                    throw  new RuntimeException("创建任务失败");
+                }
+                //TODO 关联用户id
                 job.setCron(sb.toString()).setMobile(mi.getUin()).setPwd(mi.getPwd())
                         .setCardNo(mi.getCardNo()).setEndTime(endTime)
                         .setMaxStep(zdVo.getZdMaxStep()).setMinStep(zdVo.getZdMinStep())
-                        .setJobId(1);//todo
+                        .setJobId(1);//TODO  加定时任务每天扫描删除超期定时任务
                 miJobMapper.insert(job);
 
             });
