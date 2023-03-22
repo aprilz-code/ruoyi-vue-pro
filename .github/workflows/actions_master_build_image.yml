@@ -108,5 +108,6 @@ jobs:
      #     key: ${{ secrets.REMOTE_ACCESS_TOKEN }}
           script: |
             cd /home
+            hostname
             chmod +x deployDocker.sh
             ./deployDocker.sh
