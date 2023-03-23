@@ -104,4 +104,5 @@ public interface MemberUserService {
      */
     boolean isPasswordMatch(String rawPassword, String encodedPassword);
 
+    List<MemberUserDO> getUserListNotCurrent(Long loginUserId);
 }

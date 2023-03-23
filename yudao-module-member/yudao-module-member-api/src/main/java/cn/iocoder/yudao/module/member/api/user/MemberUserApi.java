@@ -57,4 +57,11 @@ public interface MemberUserApi {
      */
     MemberUserRespDTO getUserByMobile(String mobile);
 
+    /**
+     * 获取除了当前用户外的其他用户
+     *
+     * @return 用户信息的列表
+     */
+    List<MemberUserRespDTO> getUserListNotCurrent();
+
 }

@@ -125,3 +125,61 @@ CREATE TABLE `bbs_mi_card`
     `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
     PRIMARY KEY (`id`) USING BTREE
 )ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT='米卡密表';
+
+
+-- chat
+DROP TABLE IF EXISTS `bbs_group_msg_content`;
+CREATE TABLE `bbs_group_msg_content`
+(
+    `id` bigint NOT NULL AUTO_INCREMENT COMMENT '消息内容编号',
+    `group_id`  bigint NOT NULL COMMENT '群聊id',
+    `from_id` int(11) DEFAULT NULL COMMENT '发送者的编号',
+    `from_name` varchar(20) DEFAULT NULL COMMENT '发送者的昵称',
+    `from_profile` varchar(255) DEFAULT NULL COMMENT '发送者的头像',
+    `content` text COMMENT '消息内容',
+    `message_type`varchar(32) DEFAULT NULL COMMENT '消息类型编码',
+    `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
+    `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
+    `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
+    PRIMARY KEY (`id`) USING BTREE
+)ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT='群聊消息内容表';
+
+
+DROP TABLE IF EXISTS `bbs_msg_content`;
+CREATE TABLE `bbs_msg_content`
+(
+    `id` bigint NOT NULL AUTO_INCREMENT COMMENT '消息内容编号',
+    `private_chat_id`  varchar(64) NOT NULL COMMENT '私聊id,以用户小的id拼上-用户大的id',
+    `from_id` int(11) DEFAULT NULL COMMENT '发送者的编号',
+    `from_name` varchar(20) DEFAULT NULL COMMENT '发送者的昵称',
+    `from_profile` varchar(255) DEFAULT NULL COMMENT '发送者的头像',
+    `content` text COMMENT '消息内容',
+    `message_type`varchar(32) DEFAULT NULL COMMENT '消息类型编码',
+    `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
+    `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
+    `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
+    PRIMARY KEY (`id`) USING BTREE
+)ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT='私聊消息内容表';
+
+
+DROP TABLE IF EXISTS `bbs_message_type`;
+CREATE TABLE `bbs_message_type`
+(
+    `id` bigint NOT NULL AUTO_INCREMENT COMMENT '消息内容编号',
+    `type_code` varchar(32) DEFAULT NULL COMMENT '消息类型编码',
+    `type_name` varchar(32) DEFAULT NULL COMMENT '消息类型名称',
+    `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
+    `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
+    `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
+    PRIMARY KEY (`id`) USING BTREE
+)ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT='消息类型表';
+
+INSERT INTO `bbs_message_type` (`id`, `type_code`, `type_name`, `creator`, `create_time`, `updater`, `update_time`, `deleted`) VALUES (1, 'text', '文本', '', '2023-03-23 09:13:06', '', '2023-03-23 09:13:06', b'0');
+INSERT INTO `bbs_message_type` (`id`, `type_code`, `type_name`, `creator`, `create_time`, `updater`, `update_time`, `deleted`) VALUES (2, 'img', '图片', '', '2023-03-23 09:13:18', '', '2023-03-23 09:13:18', b'0');
+INSERT INTO `bbs_message_type` (`id`, `type_code`, `type_name`, `creator`, `create_time`, `updater`, `update_time`, `deleted`) VALUES (3, 'file', '文件', '', '2023-03-23 09:13:28', '', '2023-03-23 09:13:28', b'0');

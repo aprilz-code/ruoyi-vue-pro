@@ -51,6 +51,11 @@ public class MemberUserDO extends TenantBaseDO {
     private Integer status;
 
     /**
+     * 聊天状态 1.在线 2离线 3已注销
+     */
+    private Integer chatStatus;
+
+    /**
      * 手机
      */
     private String mobile;

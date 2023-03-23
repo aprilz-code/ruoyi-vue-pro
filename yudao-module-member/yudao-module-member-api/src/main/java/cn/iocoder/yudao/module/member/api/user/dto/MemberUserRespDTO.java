@@ -21,7 +21,7 @@ public class MemberUserRespDTO {
     private String nickname;
     /**
      * 帐号状态
-     *
+     * <p>
      * 枚举 {@link CommonStatusEnum}
      */
     private Integer status;
@@ -30,5 +30,16 @@ public class MemberUserRespDTO {
      * 手机
      */
     private String mobile;
+
+
+    /**
+     * 聊天状态 1.在线 2离线 3已注销
+     */
+    private Integer chatStatus;
+
+    /**
+     * 用户头像
+     */
+    private String avatar;
 
 }

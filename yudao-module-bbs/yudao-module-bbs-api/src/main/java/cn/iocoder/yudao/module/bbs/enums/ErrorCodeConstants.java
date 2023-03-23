@@ -27,4 +27,10 @@ public interface ErrorCodeConstants {
 
     ErrorCode MI_LOG_NOT_EXISTS = new ErrorCode(1011000051, "米日志不存在");
 
+    ErrorCode GROUP_MSG_CONTENT_NOT_EXISTS = new ErrorCode(1011000061, "群聊消息内容不存在");
+
+    ErrorCode MESSAGE_TYPE_NOT_EXISTS = new ErrorCode(1011000071, "消息类型不存在");
+
+    ErrorCode MSG_CONTENT_NOT_EXISTS = new ErrorCode(1011000081, "私聊消息内容不存在");
+
 }

@@ -67,7 +67,7 @@ public class MiJobDO extends BaseDO {
     /**
      * 状态
      *
-     * 枚举 {@link TODO common_status 对应的类}
+     * 枚举 {@link CommonStatusEnum}
      */
     private Integer status;
 

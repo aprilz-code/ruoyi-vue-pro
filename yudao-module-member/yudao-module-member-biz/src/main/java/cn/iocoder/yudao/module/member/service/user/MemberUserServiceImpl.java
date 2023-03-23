@@ -10,6 +10,7 @@ import cn.iocoder.yudao.module.member.dal.mysql.user.MemberUserMapper;
 import cn.iocoder.yudao.module.system.api.sms.SmsCodeApi;
 import cn.iocoder.yudao.module.system.api.sms.dto.code.SmsCodeUseReqDTO;
 import cn.iocoder.yudao.module.system.enums.sms.SmsSceneEnum;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.google.common.annotations.VisibleForTesting;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -148,6 +149,13 @@ public class MemberUserServiceImpl implements MemberUserService {
     @Override
     public boolean isPasswordMatch(String rawPassword, String encodedPassword) {
         return passwordEncoder.matches(rawPassword, encodedPassword);
+    }
+
+    @Override
+    public List<MemberUserDO> getUserListNotCurrent(Long loginUserId) {
+        LambdaQueryWrapper<MemberUserDO> wrapper = new LambdaQueryWrapper<>();
+        wrapper.ne(MemberUserDO::getId, loginUserId);
+        return memberUserMapper.selectList(wrapper);
     }
 
     /**
