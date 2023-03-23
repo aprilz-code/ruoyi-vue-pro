@@ -68,8 +68,8 @@ public class GroupMsgContentServiceImpl implements GroupMsgContentService {
     }
 
     @Override
-    public List<GroupMsgContentDO> getGroupMsgContentList(Collection<Long> ids) {
-        return groupMsgContentMapper.selectBatchIds(ids);
+    public List<GroupMsgContentDO> getGroupMsgContentList() {
+        return groupMsgContentMapper.selectList();
     }
 
     @Override
@@ -80,6 +80,16 @@ public class GroupMsgContentServiceImpl implements GroupMsgContentService {
     @Override
     public List<GroupMsgContentDO> getGroupMsgContentList(GroupMsgContentExportReqVO exportReqVO) {
         return groupMsgContentMapper.selectList(exportReqVO);
+    }
+
+    @Override
+    public void batchDelete(Collection<Long> ids) {
+        groupMsgContentMapper.deleteBatchIds(ids);
+    }
+
+    @Override
+    public void insert(GroupMsgContentDO groupMsgContent) {
+        groupMsgContentMapper.insert(groupMsgContent);
     }
 
 }

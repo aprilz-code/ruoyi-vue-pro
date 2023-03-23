@@ -17,7 +17,7 @@ import static cn.iocoder.yudao.framework.common.pojo.CommonResult.success;
  * @date 2020/6/16 - 21:32
  */
 @RestController
-@RequestMapping("/chat")
+@RequestMapping("/bbs/chat")
 public class ChatController {
     @Autowired
     private MemberUserApi memberUserApi;

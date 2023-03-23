@@ -68,7 +68,11 @@
             <artifactId>fastjson</artifactId>
         </dependency>
 
-
+        <dependency>
+            <groupId>com.github.binarywang</groupId>
+            <artifactId>java-emoji-converter</artifactId>
+            <version>0.1.1</version>
+        </dependency>
 
 
         <dependency>

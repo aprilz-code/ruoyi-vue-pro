@@ -43,13 +43,8 @@ public interface GroupMsgContentService {
      */
     GroupMsgContentDO getGroupMsgContent(Long id);
 
-    /**
-     * 获得群聊消息内容列表
-     *
-     * @param ids 编号
-     * @return 群聊消息内容列表
-     */
-    List<GroupMsgContentDO> getGroupMsgContentList(Collection<Long> ids);
+
+    List<GroupMsgContentDO> getGroupMsgContentList();
 
     /**
      * 获得群聊消息内容分页
@@ -67,4 +62,7 @@ public interface GroupMsgContentService {
      */
     List<GroupMsgContentDO> getGroupMsgContentList(GroupMsgContentExportReqVO exportReqVO);
 
+    void batchDelete(Collection<Long> ids);
+
+    void insert(GroupMsgContentDO groupMsgContent);
 }

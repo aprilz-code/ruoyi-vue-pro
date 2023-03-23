@@ -34,7 +34,7 @@ public class GroupMsgContentDO extends BaseDO {
     /**
      * 发送者的编号
      */
-    private Integer fromId;
+    private Long fromId;
     /**
      * 发送者的昵称
      */
