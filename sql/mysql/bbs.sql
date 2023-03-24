@@ -154,6 +154,8 @@ CREATE TABLE `bbs_msg_content`
     `private_chat_id`  varchar(64) NOT NULL COMMENT '私聊id,以用户小的id拼上-用户大的id',
     `from_id` int(11) DEFAULT NULL COMMENT '发送者的编号',
     `from_name` varchar(20) DEFAULT NULL COMMENT '发送者的昵称',
+    `to_id` int(11) DEFAULT NULL COMMENT '接收者的编号',
+    `to_name` varchar(20) DEFAULT NULL COMMENT '接收者的昵称',
     `from_profile` varchar(255) DEFAULT NULL COMMENT '发送者的头像',
     `content` text COMMENT '消息内容',
     `message_type`varchar(32) DEFAULT NULL COMMENT '消息类型编码',

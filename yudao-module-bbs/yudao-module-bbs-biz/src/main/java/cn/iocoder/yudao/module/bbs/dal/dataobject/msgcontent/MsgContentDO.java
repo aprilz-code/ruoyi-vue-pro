@@ -1,11 +1,10 @@
 package cn.iocoder.yudao.module.bbs.dal.dataobject.msgcontent;
 
-import lombok.*;
-import java.util.*;
-import java.time.LocalDateTime;
-import java.time.LocalDateTime;
-import com.baomidou.mybatisplus.annotation.*;
 import cn.iocoder.yudao.framework.mybatis.core.dataobject.BaseDO;
+import com.baomidou.mybatisplus.annotation.KeySequence;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.*;
 
 /**
  * 私聊消息内容 DO
@@ -34,11 +33,15 @@ public class MsgContentDO extends BaseDO {
     /**
      * 发送者的编号
      */
-    private Integer fromId;
+    private Long fromId;
     /**
      * 发送者的昵称
      */
     private String fromName;
+
+    private Long toId;
+
+    private String toName;
     /**
      * 发送者的头像
      */

@@ -16,10 +16,16 @@ public class MsgContentBaseVO {
     private String privateChatId;
 
     @ApiModelProperty(value = "发送者的编号", example = "29717")
-    private Integer fromId;
+    private Long fromId;
 
     @ApiModelProperty(value = "发送者的昵称", example = "王五")
     private String fromName;
+
+    @ApiModelProperty(value = "接收者的编号", example = "29717")
+    private Long toId;
+
+    @ApiModelProperty(value = "接收者的昵称", example = "王五")
+    private String toName;
 
     @ApiModelProperty(value = "发送者的头像")
     private String fromProfile;

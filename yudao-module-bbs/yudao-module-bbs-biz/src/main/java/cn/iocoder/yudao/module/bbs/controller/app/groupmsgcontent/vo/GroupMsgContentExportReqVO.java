@@ -16,7 +16,7 @@ public class GroupMsgContentExportReqVO {
     private Long groupId;
 
     @ApiModelProperty(value = "发送者的编号", example = "77")
-    private Integer fromId;
+    private Long fromId;
 
     @ApiModelProperty(value = "发送者的昵称", example = "李四")
     private String fromName;

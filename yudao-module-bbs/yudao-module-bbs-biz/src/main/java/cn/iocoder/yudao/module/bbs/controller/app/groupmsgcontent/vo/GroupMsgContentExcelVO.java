@@ -21,7 +21,7 @@ public class GroupMsgContentExcelVO {
     private Long groupId;
 
     @ExcelProperty("发送者的编号")
-    private Integer fromId;
+    private Long fromId;
 
     @ExcelProperty("发送者的昵称")
     private String fromName;

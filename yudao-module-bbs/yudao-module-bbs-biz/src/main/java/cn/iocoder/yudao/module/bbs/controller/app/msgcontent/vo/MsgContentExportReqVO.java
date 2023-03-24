@@ -16,7 +16,7 @@ public class MsgContentExportReqVO {
     private String privateChatId;
 
     @ApiModelProperty(value = "发送者的编号", example = "29717")
-    private Integer fromId;
+    private Long fromId;
 
     @ApiModelProperty(value = "发送者的昵称", example = "王五")
     private String fromName;

@@ -5,6 +5,7 @@ import cn.iocoder.yudao.module.member.api.user.MemberUserApi;
 import cn.iocoder.yudao.module.member.api.user.dto.MemberUserRespDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -22,7 +23,7 @@ public class ChatController {
     @Autowired
     private MemberUserApi memberUserApi;
 
-    @GetMapping("/users")
+    @PostMapping("/getOnlineUsers")
     public CommonResult<List<MemberUserRespDTO>> getUsersWithoutCurrentUser() {
         return success(memberUserApi.getUserListNotCurrent());
     }
