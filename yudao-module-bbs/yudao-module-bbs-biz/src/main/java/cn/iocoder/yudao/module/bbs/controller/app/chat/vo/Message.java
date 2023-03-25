@@ -17,6 +17,6 @@ public class Message {
   private Date createTime;
   private String fromNickname;
   private String fromUserProfile;
-  private Integer messageTypeId;
+  private String messageType;
 
 }

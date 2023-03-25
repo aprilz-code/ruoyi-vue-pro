@@ -2,7 +2,9 @@ package cn.iocoder.yudao.module.bbs.controller.app.chat;
 
 import cn.iocoder.yudao.framework.security.core.util.SecurityFrameworkUtils;
 import cn.iocoder.yudao.module.bbs.controller.app.chat.vo.Message;
+import cn.iocoder.yudao.module.bbs.controller.app.msgcontent.vo.MsgContentCreateReqVO;
 import cn.iocoder.yudao.module.bbs.dal.dataobject.groupmsgcontent.GroupMsgContentDO;
+import cn.iocoder.yudao.module.bbs.dal.dataobject.msgcontent.MsgContentDO;
 import cn.iocoder.yudao.module.bbs.service.groupmsgcontent.GroupMsgContentService;
 import cn.iocoder.yudao.module.member.api.user.MemberUserApi;
 import cn.iocoder.yudao.module.member.api.user.dto.MemberUserRespDTO;
@@ -38,13 +40,12 @@ public class WsController {
      * @param message
      */
     @MessageMapping("/ws/privateChat")
-    public void handleMessage(Message message) {
+    public void handleMessage(MsgContentDO message) {
         Long loginUserId = SecurityFrameworkUtils.getLoginUserId();
         MemberUserRespDTO user = memberUserApi.getUser(loginUserId);
-        message.setFromNickname(user.getNickname());
-        message.setFrom(user.getUserName());
-        message.setCreateTime(new Date());
-        simpMessagingTemplate.convertAndSendToUser(message.getTo(), "/queue/chat", message);
+        message.setFromName(user.getNickname());
+        message.setFromId(loginUserId);
+        simpMessagingTemplate.convertAndSendToUser(message.getToId().toString(), "/queue/chat", message);
     }
 
 
